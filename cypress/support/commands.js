@@ -1,25 +1,35 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('SingIn', ()=>{
+    cy.visit("/#/login?_k=ahhw5f");
+    cy.title().should('eq', 'Conduit');
+    cy.location('protocol').should('eq','https:')
+    cy.get('form').within(($form)=>{
+        cy.get('input[placeholder="Email"]').type("mkbills981@gmail.com");
+        cy.get('input[placeholder="Password"]').type("ksciuk12");
+        cy.root().submit();
+    })
+    cy.contains('Your Feed')
+        .should('be.visible');
+    cy.contains('Global Feed')
+        .should('be.visible')
+})
+
+Cypress.Commands.add('SingOut', ()=>{
+    cy.get('.navbar-nav')
+        .children()
+        .contains('Matthewksc').should('be.visible')
+        .click();
+
+    cy.location('hash').should('contain', '#/@Matthewksc');
+
+    cy.get('.btn')
+        .contains('Edit Profile Settings').should('be.visible')
+        .click();
+
+    cy.location('hash').should('contain', '#/settings');
+
+    cy.get('.btn')
+        .contains('Or click here to logout.').should('be.visible')
+        .click();
+
+    cy.get('.logo-font').should('be.visible');
+})
