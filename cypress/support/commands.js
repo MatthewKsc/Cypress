@@ -14,7 +14,7 @@ Cypress.Commands.add('SingIn', ()=>{
 })
 
 Cypress.Commands.add('SingOut', ()=>{
-    cy.get('.navbar-nav')
+    cy.get('ul.navbar-nav')
         .children()
         .contains('Matthewksc').should('be.visible')
         .click();
