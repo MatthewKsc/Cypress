@@ -1,5 +1,5 @@
 /*
-PreRequest: In our account should be at least one article
+PreRequest: In account should be at least one article
  */
 
 describe('Delete article', function (){
