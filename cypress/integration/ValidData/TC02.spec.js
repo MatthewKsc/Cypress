@@ -1,5 +1,7 @@
 describe('Create a article', function (){
 
+    const test = 'Test';
+
     before('Login', function (){
        cy.SingIn();
     });
@@ -16,9 +18,9 @@ describe('Create a article', function (){
         cy.hash().should('contain', '#/editor');
 
         cy.get('form').within(($form)=>{
-            cy.get('input').first().type('Test');
-            cy.get('input').eq(1).type('Test');
-            cy.get('textarea').last().type('Test');
+            cy.get('input').first().type(test);
+            cy.get('input').eq(1).type(test);
+            cy.get('textarea').last().type(test);
             cy.contains('Publish Article').click()
         });
 
@@ -32,7 +34,7 @@ describe('Create a article', function (){
 
         cy.get('.article-preview')
             .first()
-            .should('contain', 'Test')
+            .should('contain', test)
             .should('be.visible');
     });
 
