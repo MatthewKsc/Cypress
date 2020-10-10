@@ -8,15 +8,19 @@ describe('Change certain article', function (){
         cy.SingIn();
     });
 
+    beforeEach('Aliases', function (){
+        cy.get('ul.navbar-nav').children().as('bar');
+    });
+
     it('change article', function () {
-        cy.get('ul.navbar-nav')
-            .children()
+        cy.get('@bar')
             .contains('Matthewksc')
             .should('be.visible')
             .click();
 
-        cy.get('.article-preview')
-            .first()
+        cy.get('.article-preview').first().as('article')
+
+        cy.get('@article')
             .should('be.visible')
             .click();
 
@@ -36,14 +40,12 @@ describe('Change certain article', function (){
 
         cy.hash().should('contain', '#/article');
 
-        cy.get('ul.navbar-nav')
-            .children()
+        cy.get('@bar')
             .contains('Matthewksc')
             .should('be.visible')
             .click();
 
-        cy.get('.article-preview')
-            .first()
+        cy.get('@article')
             .should('contain', 'Changed');
     });
 

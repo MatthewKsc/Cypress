@@ -4,9 +4,12 @@ describe('Create a article', function (){
        cy.SingIn();
     });
 
+    beforeEach('Aliases', function (){
+        cy.get('ul.navbar-nav').children().as('bar');
+    });
+
     it('create', function () {
-        cy.get('ul.navbar-nav')
-            .children()
+        cy.get('@bar')
             .contains('New Post')
             .click();
 
@@ -23,8 +26,7 @@ describe('Create a article', function (){
     });
 
     it('check if created', function () {
-        cy.get('ul.navbar-nav')
-            .children()
+        cy.get('@bar')
             .contains('Matthewksc')
             .click();
 
@@ -35,8 +37,9 @@ describe('Create a article', function (){
     });
 
     it('like and unlike article', function () {
-        cy.get('.ion-heart')
-            .first()
+        cy.get('.ion-heart').first().as('heart');
+
+        cy.get('@heart')
             .should('be.visible')
             .click();
 
@@ -46,8 +49,7 @@ describe('Create a article', function (){
             .should('be.visible')
             .click();
 
-        cy.get('.ion-heart')
-            .first()
+        cy.get('@heart')
             .should('be.visible')
             .click();
 
